@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%
+	String userID = (String) session.getAttribute("userID");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,19 +40,16 @@
 </head>
 <body>
 
-	<%
-	String userID = (String) session.getAttribute("userID");
-%>
-	
 
 
-	<!-- 네비게이션 바 -->
+
+<!-- 네비게이션 바 -->
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark "
 		id="top_navbar">
 		<div class="container">
 
 			<!-- 브랜드 로고 -->
-			<a href="http://naver.com" class="navbar-brand"> <img
+			<a href="/ITformation/index.jsp" class="navbar-brand"> <img
 				src="img/play_data_white.png" alt="ITFORMATION">
 			</a>
 			<!-- 햄버거 버튼  -->
@@ -63,14 +62,28 @@
 				id="myNavbar">
 				<!-- 메뉴 목록 -->
 				<ul class="nav navbar-nav" id="top_navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="#">게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ITformation/selectAllBbs.do">게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">공모전</a></li>
 					<!-- 본 메뉴 클릭 시 모달창 적용 -->
+					<!-- 본 메뉴 클릭 시 모달창 적용 -->
+					<%
+					 if(session.getAttribute("userID") == null) {
+					%>
+
 					<li class="nav-item"><a class="nav-link" href=""
 						data-toggle="modal" data-target="#myModal"><i
 							class="fas fa-sign-in-alt"></i> 로그인</a></li>
+
+					<%
+						} else {
+					%>
+					<li class="nav-item"><a class="nav-link" href="/ITformation/myPage.do">MyPage</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ITformation/logout.do"> 로그 아웃 </a></li>
 				</ul>
 			</div>
+			<%
+				}
+			%>
 		</div>
 	</nav>
 
@@ -91,7 +104,7 @@
 				</div>
 				<div class="modal-body">
 					<div style="padding-top: 30px;">
-						<form method="post" action="loginAction.jsp">
+						<form method="get" action="/ITformation/login.do">
 							<div class="form-group row">
 								<div class="col-md-9">
 									<input type="text" class="form-control" placeholder="아이디"
@@ -101,7 +114,7 @@
 								</div>
 								<!-- 버튼 세로크기 조절좀  -->
 								<div class="col-md-3" align="center">
-									<button type="button" class="btn btn-primary btn-lg"
+									<button type="submit" class="btn btn-primary btn-lg"
 										style="height: 95px">Login</button>
 								</div>
 							</div>
@@ -114,7 +127,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<a class="btn btn-primary" href="join.jsp" role="button">회원가입</a>
+					<a class="btn btn-primary" href="/ITformation/customer/join.do"
+						role="button">회원가입</a>
 				</div>
 			</div>
 		</div>

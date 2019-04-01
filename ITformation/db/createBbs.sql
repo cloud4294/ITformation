@@ -10,6 +10,7 @@
  	
 select * from bbs;
 
+drop table bbs;
 
 CREATE SEQUENCE BBSNO 
 START WITH 1

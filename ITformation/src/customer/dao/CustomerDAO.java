@@ -102,23 +102,25 @@ public class CustomerDAO {
 		
 	}
 	
-	public CustomerVO getLogin(CustomerVO Vo) {
+	public int getLogin(CustomerVO Vo) {
 
 		SqlSession session = factory.openSession();
-		CustomerVO VO = null;	
+		CustomerVO VO = null;
+		int res = 1;
 		try {
 			VO = session.selectOne("customerMapper.CustomerLoginCheck",Vo);
 			if(VO != null) {
 				VO = session.selectOne("customerMapper.CustomerLogin",Vo);
-				if(VO == null) {
-					
-				}
+				if(VO != null) {
+					res = 0;
+				}else
+					res = 2;
 			}
 				
 		} finally {
 			session.close();
 		}
-		return VO;
+		return res;
 	}
 	
 	//getCustomer

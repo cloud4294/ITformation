@@ -27,6 +27,8 @@ public class BbsBiz {
 		return bbsDao.getInsertBbs(entity);
 	}
 	
+	
+	
 	public List<BbsEntity> getAll(){
 		List<BbsEntity> list = bbsDao.getAll();
 		Collections.sort(list, new Comparator<BbsEntity>() {

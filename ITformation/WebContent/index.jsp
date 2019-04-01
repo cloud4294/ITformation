@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="customer.vo.CustomerVO"%>
 <%
-	CustomerVO customer = (CustomerVO) request.getAttribute("customer");
+	String customer = (String) request.getAttribute("customer");
 	if(customer != null){
-		session.setAttribute("userID", customer.getC_id());
+		session.setAttribute("userID", customer);
 	}
 %>
 <!DOCTYPE html>
@@ -50,7 +50,7 @@
 		<div class="container">
 
 			<!-- 브랜드 로고 -->
-			<a href="http://naver.com" class="navbar-brand"> <img
+			<a href="/ITformation/index.jsp" class="navbar-brand"> <img
 				src="img/play_data_white.png" alt="ITFORMATION">
 			</a>
 			<!-- 햄버거 버튼  -->

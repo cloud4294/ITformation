@@ -1,10 +1,14 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bbs.entity.BbsEntity, java.util.*" %>
-<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="bbs.entity.BbsEntity, java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	List<BbsEntity> AllBbs = (List<BbsEntity>)request.getAttribute("AllBbs");
-%>  	
+	List<BbsEntity> AllBbs = (List<BbsEntity>) request.getAttribute("AllBbs");
+	String userID = (String) session.getAttribute("userID");
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +51,7 @@
 		<div class="container">
 
 			<!-- 브랜드 로고 -->
-			<a href="http://naver.com" class="navbar-brand"> <img
+			<a href="/ITformation/index.jsp" class="navbar-brand"> <img
 				src="img/play_data_white.png" alt="ITFORMATION">
 			</a>
 			<!-- 햄버거 버튼  -->
@@ -60,14 +64,31 @@
 				id="myNavbar">
 				<!-- 메뉴 목록 -->
 				<ul class="nav navbar-nav" id="top_navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="#">게시판</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/ITformation/selectAllBbs.do">게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">공모전</a></li>
 					<!-- 본 메뉴 클릭 시 모달창 적용 -->
+					<!-- 본 메뉴 클릭 시 모달창 적용 -->
+					<%
+						if (session.getAttribute("userID") == null) {
+					%>
+
 					<li class="nav-item"><a class="nav-link" href=""
 						data-toggle="modal" data-target="#myModal"><i
 							class="fas fa-sign-in-alt"></i> 로그인</a></li>
+
+					<%
+						} else {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="/ITformation/myPage.do">MyPage</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/ITformation/logout.do"> 로그 아웃 </a></li>
 				</ul>
 			</div>
+			<%
+				}
+			%>
 		</div>
 	</nav>
 
@@ -88,7 +109,7 @@
 				</div>
 				<div class="modal-body">
 					<div style="padding-top: 30px;">
-						<form method="post" action="loginAction.jsp">
+						<form method="get" action="/ITformation/login.do">
 							<div class="form-group row">
 								<div class="col-md-9">
 									<input type="text" class="form-control" placeholder="아이디"
@@ -98,7 +119,7 @@
 								</div>
 								<!-- 버튼 세로크기 조절좀  -->
 								<div class="col-md-3" align="center">
-									<button type="button" class="btn btn-primary btn-lg"
+									<button type="submit" class="btn btn-primary btn-lg"
 										style="height: 95px">Login</button>
 								</div>
 							</div>
@@ -111,12 +132,12 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<a class="btn btn-primary" href="join.jsp" role="button">회원가입</a>
+					<a class="btn btn-primary" href="/ITformation/customer/join.do"
+						role="button">회원가입</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<!-- 
 		<table>
 		<thead>
@@ -150,29 +171,30 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="se" items="${requestScope.AllBbs}" begin="0" end="9" step="1">
-					<tr>
+					<c:forEach var="se" items="${requestScope.AllBbs}" begin="0"
+						end="9" step="1">
 						<tr>
-               <td>${se.bbs_no}</td>
-               <td><a href="/ITformation/board/view.do?bbs_no=${se.bbs_no}">${se.bbs_tit}</a></td>
-               <td>${se.bbs_user}</td>
-               <td>${se.bbs_date}</td>
-               <td>${se.bbs_up}</td>
-            </tr>
-         </c:forEach>
-         
+						<tr>
+							<td>${se.bbs_no}</td>
+							<td><a href="/ITformation/board/view.do?bbs_no=${se.bbs_no}">${se.bbs_tit}</a></td>
+							<td>${se.bbs_user}</td>
+							<td>${se.bbs_date}</td>
+							<td>${se.bbs_up}</td>
+						</tr>
+					</c:forEach>
+
 				</tbody>
 			</table>
 		</div>
-		
+
 
 		<!-- 페이지 탐색부분 -->
 		<!-- ajax 처리할 내용.  -->
 		<div align="right">
-		<a href="update.jsp?bbsID=" class="btn btn-primary">수정</a>
-		 <a href="/ITformation/board/Write.do" class="btn btn-primary" >글쓰기</a>
-		 </div>
-		 <div>
+			<a href="update.jsp?bbsID=" class="btn btn-primary">수정</a> <a
+				href="/ITformation/board/Write.do" class="btn btn-primary">글쓰기</a>
+		</div>
+		<div>
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">이전</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -180,8 +202,8 @@
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
 				<li class="page-item"><a class="page-link" href="#">다음</a></li>
 			</ul>
+		</div>
 	</div>
-</div>
 
 </body>
 </html>

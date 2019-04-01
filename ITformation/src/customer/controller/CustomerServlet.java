@@ -78,9 +78,21 @@ public class CustomerServlet {
 		CustomerVO vo = new CustomerVO();
 		vo.setC_id(userID);
 		vo.setC_pw(userPassword); // http session
-		CustomerVO r = customer_biz.getLogin(vo);
+		ModelAndView mav = null;
+		int r = customer_biz.getLogin(vo);
+		if(r == 1) {
+			mav = new ModelAndView("/WEB-INF/view/customer/redirect.jsp");
+			mav.addObject("msg", "일치하는 ID가 존재하지 않습니다.");
+			mav.addObject("url", "/ITformation/index.jsp");
+			return mav;
+		}else if(r == 2) {
+			mav = new ModelAndView("/WEB-INF/view/customer/redirect.jsp");
+			mav.addObject("msg", "패스워드가 일치하지 않습니다.");
+			mav.addObject("url", "/ITformation/index.jsp");
+			return mav;
+		}
 		System.out.println(r);
-		return new ModelAndView("/index.jsp", "customer", r);
+		return new ModelAndView("/index.jsp", "customer", userID);
 
 	}
 

@@ -35,7 +35,7 @@ public class CustomerBIZ implements Validator {
 		return customerDao.getUpdate(cus);
 	}
 
-	public CustomerVO getLogin(CustomerVO cus) {
+	public int getLogin(CustomerVO cus) {
 		return customerDao.getLogin(cus);
 	}
 
