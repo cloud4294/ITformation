@@ -20,10 +20,13 @@
 	private String c_add;
 	private String c_dadd;
 	private String c_exadd;
+	private int c_answer_type;
+	private String c_answer;
 	 -->
 
   <insert id="CustomerInsert" parameterType="customer.vo.CustomerVO">
-  	insert into customer values(#{c_id},#{c_nic_name},#{c_name},#{c_email},#{c_phone},#{c_pw},#{c_birth},#{c_sex},#{c_post},#{c_add},'1','1')
+  	insert into customer values(#{c_id},#{c_nic_name},#{c_name},#{c_email},#{c_phone},#{c_pw},#{c_birth},#{c_sex},#{c_post},#{c_add},
+  	#{c_dadd},#{c_exadd},#{c_answer_type},#{c_answer})
   </insert>
   
   <delete id="CustomerDelete" parameterType="String">
@@ -56,6 +59,10 @@
   
   <select id="CustomerLogin" resultType="customer.vo.CustomerVO">
     select * from customer where c_id = #{c_id} and c_pw = #{c_pw}
+  </select>
+  
+  <select id="CustomerSelectID" resultType="customer.vo.CustomerVO">
+    select * from customer where c_email = #{c_email} and c_birth = #{c_birth}
   </select>
   
 </mapper>

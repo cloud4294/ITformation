@@ -136,5 +136,29 @@ public class CustomerDAO {
 		return VO;
 	}
 	
+	public String getCustomerID(CustomerVO vo) {
+
+		SqlSession session = factory.openSession();
+		CustomerVO VO = null;
+		try {
+			VO = session.selectOne("customerMapper.CustomerSelectID", vo);
+		} finally {
+			session.close();
+		}
+		return VO.getC_id();
+	}
+	
+	public String getCustomerPW(CustomerVO vo) {
+
+		SqlSession session = factory.openSession();
+		CustomerVO VO = null;
+		try {
+			VO = session.selectOne("customerMapper.CustomerSelectID", vo);
+		} finally {
+			session.close();
+		}
+		return VO.getC_id();
+	}
+	
 	
 }

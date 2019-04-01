@@ -130,6 +130,8 @@
 						data-dismiss="modal">Close</button>
 					<a class="btn btn-primary" href="/ITformation/customer/join.do"
 						role="button">회원가입</a>
+					<a class="btn btn-success" href="/ITformation/customer/find.do"
+						role="button">ID찾기</a>
 				</div>
 			</div>
 		</div>

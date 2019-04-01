@@ -42,6 +42,10 @@ public class CustomerBIZ implements Validator {
 	public CustomerVO getCustomer(String id) {
 		return customerDao.getCustomer(id);
 	}
+	
+	public String getCustomerID(CustomerVO vo) {
+		return customerDao.getCustomerID(vo);
+	}
 
 	@Override
 	public boolean supports(Class<?> clazz) {

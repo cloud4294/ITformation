@@ -49,16 +49,42 @@ public class CustomerServlet {
 	@RequestMapping(value = "/customer/join.do", method = RequestMethod.POST)
 	public ModelAndView MyInsert(@ModelAttribute("customer") CustomerVO customer,Errors result) {
 		int r = 0;
-		customer_biz.validate(customer, result);
+		/*customer_biz.validate(customer, result);
 		if(result.hasErrors()) {  	
 			return new ModelAndView("/WEB-INF/view/customer/join.jsp");
-		}
+		}*/
 		ModelAndView mav = new ModelAndView("/WEB-INF/view/customer/redirect.jsp");
 		System.out.println(customer);
 		r = customer_biz.getInsert(customer);
 		System.out.println(r);
 		mav.addObject("msg", "가입이 완료되었습니다.");
 		mav.addObject("url", "/ITformation/index.jsp");
+		return mav;
+
+	}
+	
+	@RequestMapping(value = "/customer/find.do", method = RequestMethod.GET)
+	public ModelAndView customerFind() {
+		CustomerVO VO = new CustomerVO();
+		ModelAndView mav = new ModelAndView("/WEB-INF/view/customer/FindID.jsp","customer",VO);
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/customer/find.do", method = RequestMethod.POST)
+	public ModelAndView customerFindID(@ModelAttribute("customer") CustomerVO customer) {
+		String ID = null;
+		ModelAndView mav = new ModelAndView("/WEB-INF/view/customer/redirect.jsp");
+		System.out.println(customer);
+		ID = customer_biz.getCustomerID(customer);
+		if(ID == null) {
+			mav.addObject("msg", "해당하는 ID가 존재하지 않습니다.");
+			mav.addObject("url", "/ITformation/index.jsp");			
+		}else {
+			mav.addObject("msg", "당신의 ID는 " + ID + " 입니다.");
+			mav.addObject("url", "/ITformation/index.jsp");
+		}
+		
 		return mav;
 
 	}
